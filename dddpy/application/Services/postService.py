@@ -44,3 +44,4 @@ def get_posts_with_images_service(db: Session, limit: int, skip: int):
     total = query.count()  # Get the total count of posts
     posts = query.offset(skip).limit(limit).all()
     return posts, total
+
