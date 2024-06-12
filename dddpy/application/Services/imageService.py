@@ -14,4 +14,3 @@ async def upload_image_service(image:UploadFile,idPost: str, db: Session)->str:
     newImage = ImageDTO(url,idPost)
     repository.add(newImage)
     return url
-
