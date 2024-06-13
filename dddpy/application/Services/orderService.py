@@ -49,3 +49,8 @@ def map_post_to_order(post_id:str, db: Session) -> PostDTO:
     post_repository = GenericRepository(db, PostDTO)
     post = post_repository.get(entity_id=post_id)
     return post
+
+def get_order_by_user_service(id_user: str , db:Session):
+    repository = GenericRepository(db, OrderDTO)
+    orders = repository.get_by_filter(user_id = id_user)
+    return orders

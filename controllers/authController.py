@@ -18,6 +18,7 @@ def login(user: UserLogin, db:Session = Depends(get_db)):
         
         if token:
             user_data = {
+                "id" : db_user.id,
                 "name":db_user.name,
                 "email": db_user.email,
                 "lastName": db_user.lastName,

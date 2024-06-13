@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from dddpy.application.Models.orderModel import CreateOrderModel, UpdateOrderStatusModel
 from dddpy.application.Models.userModel import UserModel
-from dddpy.application.Services.orderService import change_order_status_service, create_order_service, get_all_orders_service, get_order_by_id_service
+from dddpy.application.Services.orderService import change_order_status_service, create_order_service, get_all_orders_service, get_order_by_id_service, get_order_by_user_service
 from dddpy.domain.Enums.orderStatus import orderStatus
 from dddpy.insfrastructure.Auth.jwt_depends import JWTBearer
 from dddpy.insfrastructure.sqlite.database import get_db
@@ -33,3 +33,8 @@ async def get_order_by_id(id: str, db: Session = Depends(get_db), authorized: Us
 async def change_order_status(model: UpdateOrderStatusModel, db: Session = Depends(get_db), authorized: UserModel = Depends(JWTBearer())):
     return change_order_status_service(model.orderId, model.status, db)
     
+@order_router.get(
+    "/getOrderByUser"
+)
+async def get_order_by_user(user_id: str, db: Session = Depends(get_db)):
+    return get_order_by_user_service(user_id, db)

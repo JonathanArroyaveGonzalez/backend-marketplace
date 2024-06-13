@@ -16,6 +16,7 @@ class UserDTO(Base):
     password = Column(String)
     creation_date = Column(DateTime)
     last_modified_date = Column(DateTime)
+    postCreated = relationship("PostDTO", back_populates="userCreated")
     orders = relationship("OrderDTO", back_populates="user_order")
 
     def __init__(self, name, lastName, email, phone, password):
@@ -27,3 +28,4 @@ class UserDTO(Base):
         self.password = encrypt_password(password)
         self.creation_date = datetime.now()
         self.last_modified_date = self.creation_date
+        

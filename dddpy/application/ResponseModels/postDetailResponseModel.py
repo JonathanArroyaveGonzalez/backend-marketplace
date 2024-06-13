@@ -9,6 +9,7 @@ from dddpy.domain.schemas.qualification_dto import QualificationDTO
 
 
 class PostDetailResponseModel(EntityModel):
+    created_User: str
     name:str
     category:int
     price:float
@@ -19,6 +20,7 @@ class PostDetailResponseModel(EntityModel):
     images: List[ImageDTO]
 
     def __init__(self, post :PostDTO, qualifications: List[QualificationDTO], images :List[ImageDTO]):
+        self.created_User = post.user_id
         self.id = post.id
         self.name = post.name
         self.category = post.category

@@ -1,8 +1,6 @@
 #infrastructure/repository_generic.py
-from sqlalchemy.orm import Session, selectinload
+from sqlalchemy.orm import Session
 from typing import List, Type, TypeVar, Generic
-
-from dddpy.domain.schemas.image_dto import ImageDTO
 
 T = TypeVar('T')
 
@@ -34,10 +32,3 @@ class GenericRepository(Generic[T]):
 
     def get_by_filter(self, **filters) -> List[T]:
         return self.db_session.query(self.model).filter_by(**filters).all()
-
-    def get_all_with_images(self, db: Session) -> List[T]:
-        # Realiza una consulta que incluye las imágenes relacionadas usando selectinload
-        query = db.query(self.model).options(selectinload(self.model.images))
-        return query.all()
-
-
